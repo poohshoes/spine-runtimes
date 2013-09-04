@@ -77,8 +77,11 @@ namespace Spine {
 				RegionAttachment regionAttachment = slot.Attachment as RegionAttachment;
 				if (regionAttachment != null) {
 					SpriteBatchItem item = batcher.CreateBatchItem();
-					AtlasRegion region = (AtlasRegion)regionAttachment.RendererObject;
-					item.Texture = (Texture2D)region.page.rendererObject;
+                    item.Texture = regionAttachment.RendererObject as Texture2D;
+                    if (item.Texture == null) {
+                        AtlasRegion region = (AtlasRegion)regionAttachment.RendererObject;
+                        item.Texture = (Texture2D)region.page.rendererObject;
+                    }
 
 					byte r = (byte)(skeleton.R * slot.R * 255);
 					byte g = (byte)(skeleton.G * slot.G * 255);
