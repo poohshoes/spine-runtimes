@@ -310,6 +310,41 @@ namespace Spine {
 				}
 			}
 
+            if (map.ContainsKey("draworder")) {
+                var drawOrderMapList = (List<Object>)map["draworder"];
+                DrawOrderTimeline timeline = new DrawOrderTimeline(drawOrderMapList.Count);
+                int slotCount = skeletonData.Slots.Count;
+                int frameIndex = 0;
+                foreach (Object drawOrderMapListEntry in drawOrderMapList) {
+					var drawOrderMap = (Dictionary<String, Object>)drawOrderMapListEntry;
+                    int[] drawOrder = new int[slotCount];
+                    for (int i = slotCount - 1; i >= 0; i--)
+                        drawOrder[i] = -1;
+                    List<Object> offsets = (List<Object>)drawOrderMap["offsets"];
+                    int[] unchanged = new int[slotCount - offsets.Count];
+                    int originalIndex = 0, unchangedIndex = 0;
+                    foreach (Object offsetMapEntry in offsets) {
+                        var offsetMap = (Dictionary<String, Object>)offsetMapEntry;
+                        int slotIndex = skeletonData.FindSlotIndex((string)offsetMap["slot"]);
+                        if (slotIndex == -1) throw new Exception("Slot not found: " + (string)offsetMap["slot"]);
+                        // Collect unchanged items.
+                        while (originalIndex != slotIndex)
+                            unchanged[unchangedIndex++] = originalIndex++;
+                        // Set changed items.
+                        drawOrder[originalIndex + (int)((float)offsetMap["offset"])] = originalIndex++;
+                    }
+                    // Collect remaining unchanged items.
+                    while (originalIndex < slotCount)
+                        unchanged[unchangedIndex++] = originalIndex++;
+                    // Fill in unchanged items.
+                    for (int i = slotCount - 1; i >= 0; i--)
+                        if (drawOrder[i] == -1) drawOrder[i] = unchanged[--unchangedIndex];
+                    timeline.setFrame(frameIndex++, (float)drawOrderMap["time"], drawOrder);
+                }
+                timelines.Add(timeline);
+                duration = Math.Max(duration, timeline.Frames[timeline.Frames.Length - 1]);
+            }
+
 			timelines.TrimExcess();
 			skeletonData.AddAnimation(new Animation(name, timelines, duration));
 		}

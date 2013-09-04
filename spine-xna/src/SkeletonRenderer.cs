@@ -75,7 +75,7 @@ namespace Spine {
 			for (int i = 0, n = drawOrder.Count; i < n; i++) {
 				Slot slot = drawOrder[i];
 				RegionAttachment regionAttachment = slot.Attachment as RegionAttachment;
-				if (regionAttachment != null) {
+				if (regionAttachment != null && regionAttachment.RendererObject != null) {
 					SpriteBatchItem item = batcher.CreateBatchItem();
                     item.Texture = regionAttachment.RendererObject as Texture2D;
                     if (item.Texture == null) {

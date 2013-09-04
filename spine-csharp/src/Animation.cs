@@ -412,4 +412,36 @@ namespace Spine {
 				 attachmentName == null ? null : skeleton.GetAttachment(SlotIndex, attachmentName);
 		}
 	}
+
+    public class DrawOrderTimeline : Timeline {
+        public float[] Frames { get; private set; }
+        public int[][] DrawOrders { get; private set; }
+
+        public DrawOrderTimeline(int frameCount) {
+            Frames = new float[frameCount];
+            DrawOrders = new int[frameCount][];
+        }
+
+        public void setFrame(int frameIndex, float time, int[] drawOrder) {
+            Frames[frameIndex] = time;
+            DrawOrders[frameIndex] = drawOrder;
+        }
+
+        public void Apply(Skeleton skeleton, float lastTime, float time) {
+            float[] frames = Frames;
+            if (time < frames[0]) return; // Time is before first frame.
+
+            int frameIndex;
+            if (time >= frames[frames.Length - 1]) // Time is after last frame.
+                frameIndex = frames.Length - 1;
+            else
+                frameIndex = Animation.binarySearch(frames, time, 1) - 1;
+
+            List<Slot> drawOrder = skeleton.DrawOrder;
+            List<Slot> slots = skeleton.Slots;
+            int[] drawOrderToSetupIndex = DrawOrders[frameIndex];
+            for (int i = 0, n = drawOrderToSetupIndex.Length; i < n; i++)
+                drawOrder[i] = slots[drawOrderToSetupIndex[i]];
+        }
+    }
 }
