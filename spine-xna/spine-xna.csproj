@@ -36,9 +36,9 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <DefineConstants>WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -59,32 +59,9 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Xact, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Video, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Avatar, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Storage, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <Private>False</Private>
+    <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\mono_projects\MonoGame\MonoGame.Framework\bin\WindowsGL\Release\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <Private>False</Private>
@@ -115,12 +92,6 @@
     <Compile Include="src\SpriteBatcher.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\spine-csharp\spine-csharp.csproj">
-      <Project>{94144E22-2431-4A8F-AC04-DEC22F7EDD8F}</Project>
-      <Name>spine-csharp</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
@@ -141,6 +112,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\spine-csharp\spine-csharp.csproj">
+      <Project>{94144E22-2431-4A8F-AC04-DEC22F7EDD8F}</Project>
+      <Name>spine-csharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

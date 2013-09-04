@@ -26,7 +26,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
