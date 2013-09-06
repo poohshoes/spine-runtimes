@@ -427,7 +427,7 @@ namespace Spine {
             DrawOrders[frameIndex] = drawOrder;
         }
 
-        public void Apply(Skeleton skeleton, float lastTime, float time) {
+        public void Apply(Skeleton skeleton, float time, float alpha) {
             float[] frames = Frames;
             if (time < frames[0]) return; // Time is before first frame.
 
